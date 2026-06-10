@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+        <title>SerialBridge</title>
+        <link rel="stylesheet" href="/style.css" />
+        <script src="/script.js" defer></script>
+    </head>
+
+    <body>
+        <div class="page">
+            <header class="header">
+                <div class="header-main">
+                    <div class="brand">
+                        <span class="brand-mark" aria-hidden="true">
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.6"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <rect x="3" y="4" width="18" height="16" rx="3"></rect>
+                                <path d="M7 9l3 3-3 3"></path>
+                                <path d="M13 15h4"></path>
+                            </svg>
+                        </span>
+                        <h1>SerialBridge</h1>
+                    </div>
+                    <p class="subtitle" data-i18n="appSubtitle"></p>
+                </div>
+                <button
+                    type="button"
+                    class="language-toggle"
+                    data-action="languageToggle"
+                    data-i18n="appLanguageToggle"
+                >
+                    中文
+                </button>
+            </header>
+
+            <section class="panel main-tabs">
+                <div class="tab-bar" role="tablist">
+                    <div class="tab-indicator" aria-hidden="true"></div>
+                    <button
+                        type="button"
+                        class="tab-button active"
+                        data-tab="status"
+                        role="tab"
+                        aria-selected="true"
+                        aria-controls="panel-status"
+                    >
+                        <svg
+                            class="tab-icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.6"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M3 12h3.5l2.5 7 4-14 2.5 7H21"></path>
+                        </svg>
+                        <span class="tab-label" data-i18n="tabStatus"></span>
+                    </button>
+                    <button
+                        type="button"
+                        class="tab-button"
+                        data-tab="network"
+                        role="tab"
+                        aria-selected="false"
+                        aria-controls="panel-network"
+                    >
+                        <svg
+                            class="tab-icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.6"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M4 9.5a12 12 0 0 1 16 0"></path>
+                            <path d="M7 13a8 8 0 0 1 10 0"></path>
+                            <path d="M9.5 16.5a4 4 0 0 1 5 0"></path>
+                            <circle cx="12" cy="19.5" r="0.6"></circle>
+                        </svg>
+                        <span class="tab-label" data-i18n="tabNetwork"></span>
+                    </button>
+                    <button
+                        type="button"
+                        class="tab-button"
+                        data-tab="ssh"
+                        role="tab"
+                        aria-selected="false"
+                        aria-controls="panel-ssh"
+                    >
+                        <svg
+                            class="tab-icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.6"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <circle cx="8" cy="15" r="3.2"></circle>
+                            <path d="M10.3 12.7l7.2-7.2"></path>
+                            <path d="M14.5 8.5l2.2 2.2"></path>
+                            <path d="M17 6l2.2 2.2"></path>
+                        </svg>
+                        <span class="tab-label" data-i18n="tabSsh"></span>
+                    </button>
+                    <button
+                        type="button"
+                        class="tab-button"
+                        data-tab="system"
+                        role="tab"
+                        aria-selected="false"
+                        aria-controls="panel-system"
+                    >
+                        <svg
+                            class="tab-icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.6"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M5 7h14"></path>
+                            <path d="M5 12h14"></path>
+                            <path d="M5 17h14"></path>
+                            <circle cx="9" cy="7" r="2"></circle>
+                            <circle cx="15" cy="12" r="2"></circle>
+                            <circle cx="9" cy="17" r="2"></circle>
+                        </svg>
+                        <span class="tab-label" data-i18n="tabSystem"></span>
+                    </button>
+                </div>
+
+                <div class="tab-panels">
+                    <div id="panel-status" class="tab-panel" role="tabpanel">
+                        <div class="section-card status-error" data-role="status-error" hidden>
+                            <span class="status-value" data-status="error"></span>
+                        </div>
+                        <div data-role="status-rows" class="card-grid">
+                            <section class="section-card">
+                                <h2 class="card-title" data-i18n="statusDeviceTitle"></h2>
+                                <div class="status-grid">
+                                    <div class="status-item">
+                                        <span class="status-label" data-i18n="statusDeviceName"></span>
+                                        <span class="status-value" data-status="deviceName"></span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label" data-i18n="statusDeviceFirmwareVersion"></span>
+                                        <span class="status-value" data-status="deviceFirmwareVersion"></span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label" data-i18n="statusDeviceMemory"></span>
+                                        <span class="status-value" data-status="deviceMemory"></span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label" data-i18n="statusDeviceUptime"></span>
+                                        <span class="status-value" data-status="deviceUptime"></span>
+                                    </div>
+                                </div>
+                            </section>
+                            <section class="section-card">
+                                <h2 class="card-title" data-i18n="statusWifiTitle"></h2>
+                                <div class="status-grid">
+                                    <div class="status-item">
+                                        <span class="status-label" data-i18n="statusWifiMode"></span>
+                                        <span class="status-value" data-status="wifiMode"></span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label" data-i18n="statusWifiSignalStrength"></span>
+                                        <span class="status-value" data-status="wifiRssi"></span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label" data-i18n="statusWifiMacAddress"></span>
+                                        <span class="status-value" data-status="wifiMacAddr"></span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label" data-i18n="statusWifiIpv4Address"></span>
+                                        <span class="status-value" data-status="wifiIpv4Addr"></span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label" data-i18n="statusWifiIpv6Address"></span>
+                                        <span class="status-value" data-status="wifiIpv6Addr"></span>
+                                    </div>
+                                </div>
+                            </section>
+                            <section class="section-card">
+                                <h2 class="card-title" data-i18n="statusSshTitle"></h2>
+                                <div class="status-grid">
+                                    <div class="status-item status-wide">
+                                        <span class="status-label" data-i18n="statusSshPublicKey"></span>
+                                        <span class="status-value" data-status="sshPublicKey"></span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label" data-i18n="statusSshConnected"></span>
+                                        <span class="status-value" data-status="sshConnected"></span>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+
+                    <div id="panel-network" class="tab-panel" role="tabpanel" hidden>
+                        <div class="card-grid">
+                            <form id="form-device" class="section-card" autocomplete="on">
+                                <h2 class="card-title" data-i18n="networkDeviceTitle"></h2>
+                                <div class="fields">
+                                    <div class="field">
+                                        <label data-i18n="networkDeviceName" for="name"></label>
+                                        <input id="name" name="name" />
+                                    </div>
+                                </div>
+                                <div class="button-row">
+                                    <button type="submit" class="button-primary" data-i18n="networkDeviceSave"></button>
+                                    <button
+                                        type="button"
+                                        class="button-secondary"
+                                        data-action="reset-device"
+                                        data-i18n="networkDeviceReset"
+                                    ></button>
+                                </div>
+                            </form>
+                            <form id="form-wifi" class="section-card" autocomplete="on">
+                                <h2 class="card-title" data-i18n="networkWifiTitle"></h2>
+                                <div class="fields">
+                                    <div class="field">
+                                        <label data-i18n="networkWifiPrefMode" for="wifi-pref-mode"></label>
+                                        <select id="wifi-pref-mode" name="prefMode">
+                                            <option value="0" data-i18n="statusWifiModeOff"></option>
+                                            <option value="1" data-i18n="statusWifiModeStation"></option>
+                                            <option value="2" data-i18n="statusWifiModeAccessPoint"></option>
+                                        </select>
+                                        <p class="field-hint" id="wifi-mode-hint"></p>
+                                    </div>
+                                    <div class="field" data-wifi-group="sta">
+                                        <label data-i18n="networkWifiStaSsid" for="sta-ssid"></label>
+                                        <input id="sta-ssid" name="staSsid" />
+                                    </div>
+                                    <div class="field" data-wifi-group="sta">
+                                        <label data-i18n="networkWifiStaPassword" for="sta-password"></label>
+                                        <input
+                                            id="sta-password"
+                                            name="staPassword"
+                                            type="password"
+                                            autocomplete="current-password"
+                                            placeholder="********"
+                                        />
+                                    </div>
+                                    <div class="field" data-wifi-group="ap">
+                                        <label data-i18n="networkWifiApSsid" for="ap-ssid"></label>
+                                        <input id="ap-ssid" name="apSsid" />
+                                    </div>
+                                    <div class="field" data-wifi-group="ap">
+                                        <label data-i18n="networkWifiApPassword" for="ap-password"></label>
+                                        <input
+                                            id="ap-password"
+                                            name="apPassword"
+                                            type="password"
+                                            autocomplete="current-password"
+                                            placeholder="********"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="button-row">
+                                    <button type="submit" class="button-primary" data-i18n="networkWifiSave"></button>
+                                    <button
+                                        type="button"
+                                        class="button-secondary"
+                                        data-action="reset-wifi"
+                                        data-i18n="networkWifiReset"
+                                    ></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div id="panel-ssh" class="tab-panel" role="tabpanel" hidden>
+                        <div class="card-grid">
+                            <form id="form-ssh" class="section-card" autocomplete="on">
+                                <h2 class="card-title" data-i18n="sshTitle"></h2>
+                                <div class="fields">
+                                    <div class="field">
+                                        <label data-i18n="sshUsername" for="username"></label>
+                                        <input
+                                            id="username"
+                                            name="username"
+                                            autocomplete="username"
+                                            placeholder="admin"
+                                            disabled
+                                        />
+                                    </div>
+                                    <div class="field">
+                                        <label data-i18n="sshPassword" for="ssh-password"></label>
+                                        <input
+                                            id="ssh-password"
+                                            name="password"
+                                            type="password"
+                                            autocomplete="current-password"
+                                            placeholder="********"
+                                            disabled
+                                        />
+                                    </div>
+                                    <div class="field">
+                                        <label data-i18n="sshAuthorizedKey" for="authorized-key"></label>
+                                        <textarea
+                                            id="authorized-key"
+                                            name="authorizedKey"
+                                            placeholder="ssh-ed25519 AAAA..."
+                                            disabled
+                                        ></textarea>
+                                    </div>
+                                    <label class="checkbox" for="allow-no-auth">
+                                        <input type="checkbox" id="allow-no-auth" name="allowNoAuth" disabled />
+                                        <span data-i18n="sshAllowNoAuth"></span>
+                                    </label>
+                                </div>
+                                <div class="button-row">
+                                    <button type="submit" class="button-primary" data-i18n="sshSave" disabled></button>
+                                    <button
+                                        type="button"
+                                        class="button-secondary"
+                                        data-action="reset-ssh"
+                                        data-i18n="sshReset"
+                                    ></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div id="panel-system" class="tab-panel" role="tabpanel" hidden>
+                        <div class="card-grid">
+                            <section class="section-card">
+                                <h2 class="card-title" data-i18n="systemTitle"></h2>
+                                <div class="action-list">
+                                    <div class="action-item">
+                                        <div class="action-text">
+                                            <span class="action-name" data-i18n="systemReboot"></span>
+                                            <span class="action-desc" data-i18n="systemRebootDescription"></span>
+                                        </div>
+                                        <button
+                                            type="button"
+                                            class="button-secondary action-btn"
+                                            data-action="reboot"
+                                            data-i18n="systemRebootAction"
+                                        ></button>
+                                    </div>
+                                    <div class="action-item">
+                                        <div class="action-text">
+                                            <span class="action-name" data-i18n="systemFactoryReset"></span>
+                                            <span class="action-desc" data-i18n="systemFactoryResetDescription"></span>
+                                        </div>
+                                        <button
+                                            type="button"
+                                            class="button-warning action-btn"
+                                            data-action="factory-reset"
+                                            data-i18n="systemFactoryResetAction"
+                                        ></button>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="footer">SerialBridge &middot; &copy; 2026 RenoSeven</footer>
+        </div>
+
+        <div id="modal-ui" class="modal" hidden>
+            <div class="modal-box">
+                <p data-role="modal-msg"></p>
+                <div class="button-row modal-buttons">
+                    <button type="button" class="button-primary" data-action="ok" data-i18n="dialogOk"></button>
+                    <button
+                        type="button"
+                        class="button-secondary"
+                        data-action="cancel"
+                        data-i18n="dialogCancel"
+                    ></button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

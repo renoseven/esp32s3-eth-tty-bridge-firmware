@@ -1,0 +1,46 @@
+default_profile: release
+
+profiles:
+  debug:
+    notes: Upload with debug logging
+    fqbn: esp32:esp32:esp32s3:UploadSpeed=115200,CPUFreq=240,FlashMode=qio,FlashSize=16M,PartitionScheme=huge_app,PSRAM=opi,LoopCore=1,EventsCore=1,DebugLevel=debug
+    platforms:
+      - platform: esp32:esp32 (3.3.8)
+    libraries:
+      - ArduinoJson (7.4.3)
+      - Async TCP (3.4.10)
+      - ESP Async WebServer (3.11.0)
+      - LibSSH-ESP32 (5.8.0)
+
+  debug-full:
+    notes: Upload with debug logging and erase-all flash
+    fqbn: esp32:esp32:esp32s3:UploadSpeed=115200,CPUFreq=240,FlashMode=qio,FlashSize=16M,PartitionScheme=huge_app,PSRAM=opi,LoopCore=1,EventsCore=1,DebugLevel=debug,EraseFlash=all
+    platforms:
+      - platform: esp32:esp32 (3.3.8)
+    libraries:
+      - ArduinoJson (7.4.3)
+      - Async TCP (3.4.10)
+      - ESP Async WebServer (3.11.0)
+      - LibSSH-ESP32 (5.8.0)
+
+  release:
+    notes: Upload without erase-all flash
+    fqbn: esp32:esp32:esp32s3:UploadSpeed=115200,CPUFreq=240,FlashMode=qio,FlashSize=16M,PartitionScheme=huge_app,PSRAM=opi,LoopCore=1,EventsCore=1
+    platforms:
+      - platform: esp32:esp32 (3.3.8)
+    libraries:
+      - ArduinoJson (7.4.3)
+      - Async TCP (3.4.10)
+      - ESP Async WebServer (3.11.0)
+      - LibSSH-ESP32 (5.8.0)
+
+  release-full:
+    notes: Upload with erase-all flash
+    fqbn: esp32:esp32:esp32s3:UploadSpeed=115200,CPUFreq=240,FlashMode=qio,FlashSize=16M,PartitionScheme=huge_app,PSRAM=opi,LoopCore=1,EventsCore=1,EraseFlash=all
+    platforms:
+      - platform: esp32:esp32 (3.3.8)
+    libraries:
+      - ArduinoJson (7.4.3)
+      - Async TCP (3.4.10)
+      - ESP Async WebServer (3.11.0)
+      - LibSSH-ESP32 (5.8.0)
